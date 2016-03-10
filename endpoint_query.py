@@ -55,7 +55,7 @@ class Query:
 
 	def addParameters(self):
 		if self.params != None:
-			for key, val in self.params.iteritems():
+			for key, val in self.params.items():
 				self.value = self.value.replace(key, str(val))
 
 	def encoded(self):
