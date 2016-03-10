@@ -84,7 +84,7 @@ class SparqlHttpConnection:
 
 	def listAvailableQueries(self):
 		for filename in os.listdir(QUERY_BASE_DIR + self.dir):
-			print filename
+			print(filename)
 
 #	def writeToCache(self, queryname, params, dataset, data):
 #		if self.cache.key
