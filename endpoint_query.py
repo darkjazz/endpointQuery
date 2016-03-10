@@ -1,7 +1,7 @@
 import urllib, httplib2, os
 #from urllib import quote
 
-QUERY_BASE_DIR = "/usr/local/etc/sparql/"
+QUERY_BASE_DIR = "./"
 
 
 class SparqlHttpConnection:
