@@ -1,61 +1,8 @@
-import httplib, urllib, httplib2, os
+import urllib, httplib2, os
 from urllib import quote
 
 QUERY_BASE_DIR = "/usr/local/etc/sparql/"
 
-class SparqlEndpoint:
-	def __init__(self, uri, port=80, dir=""):
-		self.uri = uri
-		self.port = port
-		if dir != "":
-			self.dir = dir + "/"
-		self.cache = {}
-
-	def executeQuery(self, queryname, params=None, dataset=None):
-		if queryname == None: 
-			return {"error": "no queryname provided"}
-		
-		query = Query(queryname, params, self.dir)
-
-		if dataset != None and dataset != "":
-			dataset =  "/" + dataset + "/query"
-		else:
-			dataset = "/query"
-
-		self.headers = {
-			"Content-type": "application/x-www-form-urlencoded",
-            "Accept": "application/sparql-results+json"
-        }
-        
-		self.connection = httplib.HTTPConnection(self.uri, self.port)
-		self.connection.request("POST", dataset, query.encoded(), self.headers)
-		self.response = self.connection.getresponse()
-		self.data = self.response.read()
-		self.connection.close()
-		return self.data
-
-	def update(self, queryname, params=None, dataset=None):
-		if queryname == None: 
-			return {"error": "no queryname provided"}
-		
-		query = Query(queryname, params, self.dir)
-
-		if dataset != None and dataset != "":
-			dataset =  "/" + dataset + "/update"
-		else:
-			dataset = "/update"		
-
-		self.headers = {
-			"Content-type": "application/x-www-form-urlencoded",
-            "Accept": "application/sparql-results+json"
-        }
-
-		self.connection = httplib.HTTPConnection(self.uri, self.port)
-		self.connection.request("POST", dataset, query.encodedUpdate(), self.headers)
-		self.response = self.connection.getresponse()
-		self.data = self.response.read()
-		self.connection.close()
-		return self.data
 
 class SparqlHttpConnection:
 	def __init__(self, uri, port, qrydir):
