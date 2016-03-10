@@ -1,0 +1,19 @@
+PREFIX mo: <http://purl.org/ontology/mo/>
+prefix mood: <http://sovarr.c4dm.eecs.qmul.ac.uk/moodplay/>
+
+SELECT ?trackid ?artist ?title ?filename ?valence ?arousal
+WHERE 
+{
+  SELECT ?trackid ?artist ?title ?filename ?valence ?arousal ((ABS(@valence-?valence) + ABS(@arousal-?arousal)) as ?diff) 
+  WHERE {
+    ?coords mood:valence ?valence ;
+      mood:arousal ?arousal ;
+      mood:configuration mood:actfold4 .
+    ?lfmid mood:coordinates ?coords ;
+      mood:ilm_id ?ilmid ;
+      mood:song_title ?title ;
+      mo:available_as ?trackid ;
+      mood:artist_name ?artist .
+    ?trackid mood:filename ?filename .
+  } ORDER BY ?diff
+} LIMIT 1

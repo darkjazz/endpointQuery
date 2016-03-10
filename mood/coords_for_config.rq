@@ -1,0 +1,14 @@
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix mood: <http://sovarr.c4dm.eecs.qmul.ac.uk/moodplay/>
+prefix mo: <http://purl.org/ontology/mo/>
+
+SELECT ?id ?valence ?arousal ?filename
+WHERE {  
+  ?coords mood:configuration mood:actfold@config;
+		mood:valence ?valence;
+		mood:arousal ?arousal .
+  ?id	mood:coordinates ?coords;
+  	rdfs:comment "ilm222" ;
+	mo:available_as ?file .
+  ?file mood:filename ?filename .
+}

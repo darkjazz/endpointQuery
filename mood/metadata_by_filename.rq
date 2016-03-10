@@ -1,0 +1,16 @@
+PREFIX mo: <http://purl.org/ontology/mo/>
+prefix mood: <http://sovarr.c4dm.eecs.qmul.ac.uk/moodplay/>
+
+SELECT ?title ?artist ?album ?year ?mburi ?mbid
+WHERE { 
+  ?lfmid mo:available_as ?trackid ;
+    mood:song_title ?title ; 
+  	mood:artist_name ?artist ; 
+  	mood:album_title ?album ; 
+  	mood:release_year ?year .
+    OPTIONAL {
+    	?lfmid mo:musicbrainz ?mburi ;
+			mo:musicbrainz_guid ?mbid .  	
+  	} 
+  ?trackid mood:filename "@filename" .
+}

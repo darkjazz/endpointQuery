@@ -1,0 +1,8 @@
+PREFIX mo: <http://purl.org/ontology/mo/>
+prefix mood: <http://sovarr.c4dm.eecs.qmul.ac.uk/moodplay/>
+
+SELECT ?lfmid
+WHERE { 
+  ?lfmid mo:available_as ?trackid .
+  ?trackid mood:filename "@filename" .
+}

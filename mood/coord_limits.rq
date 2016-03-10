@@ -1,0 +1,12 @@
+PREFIX mood: <http://sovarr.c4dm.eecs.qmul.ac.uk/moodplay/>
+
+SELECT ?vmin ?vmax ?amin ?amax
+WHERE 
+{
+  SELECT (MIN(?valence) as ?vmin) (MAX(?valence) as ?vmax) (MIN(?arousal) as ?amin) (MAX(?arousal) as ?amax)
+  WHERE {
+    ?coords mood:valence ?valence ;
+      mood:arousal ?arousal ;
+      mood:configuration mood:actfold@configNumber .
+  }
+}

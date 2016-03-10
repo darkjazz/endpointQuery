@@ -1,0 +1,14 @@
+PREFIX mo: <http://purl.org/ontology/mo/>
+prefix mood: <http://sovarr.c4dm.eecs.qmul.ac.uk/moodplay/>
+
+SELECT ?lfmid ?artist ?title ?path ?dur ?mbguid
+WHERE { 
+  ?lfmid mo:available_as ?trackid ;
+    mood:song_title ?title ;
+    mood:artist_name ?artist ;
+    mo:musicbrainz_guid ?mbguid ;
+  	mood:track_duration ?dur .
+  ?trackid mood:filename ?path .
+  FILTER(regex(?dur, "^([0-9]+):([0-5][0-9]):([0-5][0-9]).([1-9][0-9]{0,2}|1000)$"))
+  FILTER(?dur > "00:00:50.000")
+} order by ?dur limit 20
