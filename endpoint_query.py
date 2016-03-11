@@ -1,5 +1,7 @@
-import urllib, httplib2, os
-#from urllib import quote
+import urllib, httplib2, os, sys
+
+if sys.version_info.major == 3:
+	import urllib.parse
 
 QUERY_BASE_DIR = "./"
 
@@ -59,7 +61,13 @@ class Query:
 				self.value = self.value.replace(key, str(val))
 
 	def encoded(self):
-		return urllib.urlencode({"query": self.value})
+		if sys.version_info.major == 3:
+			return urllib.parse.urlencode({"query": self.value})
+		else:
+			return urllib.urlencode({"query": self.value})
 
 	def encodedUpdate(self):
-		return urllib.urlencode({"update": self.value})
+		if sys.version_info.major == 3:
+			return urllib.parse.urlencode({"update": self.value})
+		else:
+			return urllib.urlencode({"update": self.value})
